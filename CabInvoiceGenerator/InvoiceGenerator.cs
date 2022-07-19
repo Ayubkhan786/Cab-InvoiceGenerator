@@ -6,6 +6,19 @@ using System.Threading.Tasks;
 
 namespace CabInvoiceGenerator
 {
+    public class EnhancedInvoice
+    {
+        public readonly double totalFare = 0,
+                               totalRides = 0,
+                               AvgFare;
+        public EnhancedInvoice(double totalFare, double totalRides)
+        {
+            this.totalFare = totalFare;
+            this.totalRides = totalRides;
+            this.AvgFare = totalFare / totalRides;
+            
+        }
+    }
     public class Rides
     {
         public readonly double km = 0,
@@ -33,14 +46,15 @@ namespace CabInvoiceGenerator
             return MIN_FARE;
         }
         
-        public double MultiRideFare(List<Rides> rides)
+        public EnhancedInvoice MultiRideFare(List<Rides> rides)
         {
-            double total = 0;
+            double totalFare = 0;
             foreach(var ride in rides)
             {
-                total+=Fare(ride.km,ride.min);
+                totalFare += Fare(ride.km,ride.min);
             }
-            return total;
+            EnhancedInvoice EnIn = new EnhancedInvoice(totalFare, rides.Count);
+            return EnIn;
         }
     }
 }
