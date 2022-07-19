@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 
 namespace CabInvoiceGenerator
 {
+    public class Rides
+    {
+        public readonly double km = 0,
+                               min = 0;
+        public Rides(double km, double min)
+        {
+            this.km = km;
+            this.min = min;
+        }
+    }
     public class CabInvoice
     {
 
@@ -21,6 +31,16 @@ namespace CabInvoiceGenerator
                 return CalculatedFare;
             }
             return MIN_FARE;
+        }
+        
+        public double MultiRideFare(List<Rides> rides)
+        {
+            double total = 0;
+            foreach(var ride in rides)
+            {
+                total+=Fare(ride.km,ride.min);
+            }
+            return total;
         }
     }
 }
