@@ -28,7 +28,7 @@ namespace TDDCabInvoice
             EnhancedInvoice res = Invoice.MultiRideFare(rides);
             Assert.AreEqual(659, res.totalFare);
         }
-
+        [TestMethod]
         public void EnhancedInvoice()
         {
 
