@@ -23,10 +23,12 @@ namespace CabInvoiceGenerator
     {
         public readonly double km = 0,
                                min = 0;
-        public Rides(double km, double min)
+        public readonly bool premium = false;
+        public Rides(double km, double min , bool premium =false)
         {
             this.km = km;
             this.min = min;
+            this.premium = premium;
         }
     }
     public class CabInvoice
@@ -34,9 +36,23 @@ namespace CabInvoiceGenerator
 
         const double RATE_PER_KM = 10,
                      RATE_PER_MIN = 1,
-                     MIN_FARE=5;
-        public double Fare(double km, double min)
+                     MIN_FARE = 5,
+                     P_MIN_FARE = 20,
+                     P_RATE_PER_KM = 15,
+                     P_RATE_PER_MIN = 2;
+          
+        public double Fare(double km, double min , bool premium = false)
         {
+            double RPKM = RATE_PER_KM,
+                   RPM = RATE_PER_MIN,
+                   minFare = MIN_FARE;
+            if (premium)
+            {
+                RPKM = P_MIN_FARE;
+                RPM = P_RATE_PER_KM;
+                minFare=P_RATE_PER_MIN;
+            }
+
             double CalculatedFare = km * RATE_PER_KM + min * RATE_PER_MIN;
 
             if(CalculatedFare >= MIN_FARE)
